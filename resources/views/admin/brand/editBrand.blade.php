@@ -1,26 +1,25 @@
 @extends('master')
-@section('header','Add Brand')
+@section('header','Edit Brand')
 @section('title','Brand')
-
 
 @section('main-content')
 
-<section class="content">
-        <div class="container-fluid">
+
+<div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="card">
                 <div class="card-header">
-                    <h3>Add Brand</h3>
+                    <h3>Edit Brand</h3>
                 </div>
                 @include('admin.includes.message')
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.storeBrand') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.updateBrand',$brands->id)}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                         <div class="form-group col-md-6">  
                         <label for="category_id">Category Name</label>
                         <select id="" class="custom-select" name="category_id">
-                                    <option value="">--select category name--</option>
+                                    <option value="{{$brands->cat_id}}">{{$brands->name}}</option>
                                     @foreach ($category as $categories)
                                     <option value="{{$categories->id}}">{{$categories->name}}</option>
                                     @endforeach
@@ -33,9 +32,8 @@
 
                             <div class="form-group col-md-6">
                                <label for="subcat_id">Subcategory_Name</label>
-                                <select id="subcat_id" class="custom-select" name="subcat_id">
-                                    <option value=""></option>
-                                  
+                                <select id="subcat_id" class="custom-select" name="subcat_id"> 
+                                    <option value="{{$brands->sub_id}}">{{$brands->sub_name}}</option>
                                 </select>
                                 @if ($errors->has('subcat_id'))
                                     <p class="text-danger">{{ $errors->first('subcat_id') }}</p>
@@ -43,7 +41,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="brand_name">Brand Name</label>
-                                <input class="form-control" type="text" name="brand_name">
+                                <input class="form-control" type="text" name="brand_name" value ="{{$brands->brand_name}}">            
                                 @if ($errors->has('brand_name'))
                                     <p class="text-danger">{{ $errors->first('brand_name') }}</p>
                                 @endif
@@ -54,8 +52,8 @@
 
                                 <select id="" class="custom-select" name="status">
                                     <option value="">--select--</option>
-                                    <option value="1">Open</option>
-                                    <option value="0">Close</option>
+                                    <option {{$brands->status == 1 ?'selected' : ''}}  value="1">Open</option>
+                                    <option {{$brands->status == 0 ?'selected' : ''}}  value="0">Close</option>
                                 </select>
                                 @if ($errors->has('status'))
                                     <p class="text-danger">{{ $errors->first('status') }}</p>
@@ -64,7 +62,7 @@
 
                             <div class="form-group col-md-6">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" type="text" name="description"></textarea>
+                                <textarea class="form-control" type="text" name="description">{{$brands->description}}</textarea>
                                 @if ($errors->has('description'))
                                     <p class="text-danger">{{ $errors->first('description') }}</p>
                                 @endif
@@ -78,13 +76,12 @@
                                     <p class="text-danger">{{ $errors->first('image') }}</p>
                                 @endif
                             </div>
-                            <div class="form-group col-md-2">
-                      <!--      <label for="image">Image Preview</label> -->
-                                <div id="image-preview" ></div> 
-                            </div>
+                            <div class="form-group col-md-1">
+                       <img style="width: 60px; height: 60px" src="{{asset('uploads/brands/'.$brands->image)}}">
+                    </div>
      
                         </div>
-                        <button class="btn btn-success" type="submit">Submit</button>
+                        <button class="btn btn-success" type="submit">Update</button>
                     </form>
                 </div>
             </div>
@@ -92,9 +89,9 @@
             <!-- /.row -->
 
         </div><!-- /.container-fluid -->
-    </section>
-
+</section>
 @endsection
+
 
 
 
@@ -125,6 +122,9 @@
 
 
         });
+
+
+
 
         $('select[name="category_id"]').on('change', function () {
                     var catId = $(this).val();

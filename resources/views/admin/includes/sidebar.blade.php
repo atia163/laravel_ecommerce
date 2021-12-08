@@ -107,15 +107,103 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.viewSubCategory')}}" class="nav-link {{request()->is('admin/subcategory/view-subcategory') ? 'active' : '' }}">
+                <a href="{{route('admin.viewBrand')}}" class="nav-link {{request()->is('admin/brand/view-brand') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View Brand</p>
                 </a>
               </li>
             </ul>
           </li>
+    <!-- color sidebar -->
 
-  </ul>
+    <li class="nav-item has-treeview {{request()->is('admin/color/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+
+          Color
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+              <li class="nav-item">
+                <a href="{{route('admin.addColor')}}" class="nav-link {{request()->is('admin/color/add-color','admin/color/edit-color/*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Color</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.viewColor')}}" class="nav-link {{request()->is('admin/color/view-color') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View Color</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+  <!-----Size-------------->
+
+
+  <li class="nav-item has-treeview {{request()->is('admin/size/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+
+          Size
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+              <li class="nav-item">
+                <a href="{{route('admin.addSize')}}" class="nav-link {{request()->is('admin/size/add-size','admin/size/edit-size/*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Size</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.viewSize')}}" class="nav-link {{request()->is('admin/size/view-size') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View Size</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+<!-----------product sidebar------------------>
+
+<li class="nav-item has-treeview {{request()->is('admin/product/*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link ">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p>
+
+          Products
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            
+              <li class="nav-item">
+                <a href="{{route('admin.addproduct')}}" class="nav-link {{request()->is('admin/product/add-product','admin/product/edit-product/*') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Product</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('admin.viewproduct')}}" class="nav-link {{request()->is('admin/product/view-product') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View product</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+
+
+       </ul>
 
       </nav>
       <!-- /.sidebar-menu -->
