@@ -73,8 +73,8 @@ Route::post('admin/size/update-size/{id}',[SizeController::class,'update'])->nam
 //------------------ROUTE FOR PRODUCTS-------------------------------------------
 Route::get('admin/product/add-product',[ProductController::class,'create'])->name('admin.addproduct');
 Route::post('admin/product/store-product',[ProductController::class,'store'])->name('store.product');
-Route::get('admin/product/view-product',[ProductController::class,'view'])->name('admin.viewproduct');
-Route::get('admin/product/edit-product/{id}',[ProductController::class,'edit'])->name('admin.editproduct');
+Route::get('admin/product/view-product',[ProductController::class,'view'])->name('admin.viewProduct');
+Route::get('admin/product/edit-product/{id}',[ProductController::class,'edit'])->name('admin.editProduct');
 Route::get('admin/product/delete-product/{id}',[ProductController::class,'delete'])->name('admin.deleteproduct');
 Route::post('admin/product/update-product/{id}',[ProductController::class,'update'])->name('update.product');
 Route::get('admin/product/showBrand/{id}',[ProductController::class,'showBrand'])->name('adminShowBrand');

@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+   <!-- file input -->
+  <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/bootstrap-fileinput/fileinput.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->

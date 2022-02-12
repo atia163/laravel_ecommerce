@@ -54,7 +54,7 @@
             
               <td><img style="width:60px; height:60px;"src="{{asset('uploads/products/' .$product->single_image)}}"  alt="not found"></td>
               <td>
-                  <a href="{{route('admin.editproduct',$product->id)}}"class="btn btn-info btn-xs"><i class="fa fa-pencil-alt"></i> </a>
+                  <a href="{{route('admin.editProduct',$product->id)}}"class="btn btn-info btn-xs"><i class="fa fa-pencil-alt"></i> </a>
                   <a href="{{route('admin.deleteproduct',$product->id)}}"class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i</a>
              </td>
         

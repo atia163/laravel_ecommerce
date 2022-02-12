@@ -24,7 +24,7 @@ class ProductController extends Controller
      */
     public function view()
     {
-        $products = DB::table('products')
+        $products = 'DB'::table('products')
                     ->join('categories','products.cat_id','categories.id')
                     ->join('subcategories','products.sub_id','subcategories.id')
                     ->join('brands','products.brand_id','brands.id')
@@ -100,89 +100,166 @@ class ProductController extends Controller
         else{
             $products->single_image = null;
         }
-        // $products->save();
+      // $products->save();
 
-        // $productid = $products->id;
+         $productid = $products->id;
 
-        // $stock = new Stock;
+           $stock = new Stock;
 
-        // $stock->product_id = $productid;
-        // $stock->quantity = $request->product_stock;
-        // $stock->status = $request->status;
+        $stock->product_id = $productid;
+        $stock->quantity = $request->product_stock;
+        $stock->status = $request->status;
 
-        // $stock->save();
+       //  $stock->save();
 
       
 
-//          $multipleimages = $request->multiimage;
+    $multipleimages = $request->multiimage;
 //          dd($multipleimages.length);
 
      
-//             if($multipleimages>0){
+    if($multipleimages>0){
 
-//                 for($i = 0; $i < $multipleimages; $i++){
-//                      $multiimage = new Multipleimage;
+             for($i = 0; $i < $multipleimages; $i++){
+                 $multiimage = new Multipleimage;
 
-//                     $multiimage->product_id = $productid;
+                $multiimage->product_id = $productid;
                    
 
-//                   if($mulimage = $request->file('multiimage')[$i]){
-//                     $extention = $request->file('multiimage')[$i]->getClientOriginalExtension();
-//                     $imageName = $random.'.'.$extention;
-//                     $path = public_path('uploads/products');
-//                     $image->move($path,$imageName);
-//                     $multiimage->filename = $imageName;
-//         }  
-//         else{
-//             $multiimage->filename = null;
-//         }
-
-//                     $multiimage->save();
-//                 }
-
-// }
-
-          if( $products->save()){
-// dd($products->id);
-            return redirect()->back()->with('success','Product successfully saved.');
-        }
-        else{
-            return redirect()->back()->with('error','Something Error Found !, Please try again.');
-        }
+               if($mulimage = $request->file('multiimage')[$i]){
+                $extention = $request->file('multiimage')[$i]->getClientOriginalExtension();
+                $imageName = $random.'.'.$extention;
+                $path = public_path('uploads/products');
+                $image->move($path,$imageName);
+                $multiimage->filename = $imageName;
+   }  
+    else{
+      $multiimage->filename = null;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+               $multiimage->save();
+
+                           }
+
+  }
+
+      if( $stock->save()){
+ //dd($products->id);
+        return redirect()->back()->with('success','Product successfully saved.');
+        }
+        else{
+           return redirect()->back()->with('error','Something Error Found !, Please try again.');
+       }
+   }
+
+
+   
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit($id)
     {
-        // dd($id);
+        //dd($id);
+
+        $products = 'DB'::table('products')
+        -> join('categories','products.cat_id','categories.id')
+        -> join('subcategories','products.sub_id','subcategories.id')
+        -> join('brands','products.brand_id','brands.id')
+        -> join('sizes','products.size_id','sizes.id')
+        -> join('colors','products.color_id','colors.id')
+        ->select('products.*','categories.name','subcategories.sub_name','brands.brand_name','colors.color_name','sizes.size_name')->where('products.id',$id)->first();
+         $category = Category::all();
+         $subcat = SubCategory::all();
+         $brands = Brand::all();
+         $sizes  = Size::all();
+         $colors = Color::all();
+         return view('admin.product.editProduct',compact('products','category','subcat', 'brands', 'sizes', 'colors' ));
+     }
+    
+ 
+     /**
+      * Update the specified resource in storage.
+      *
+      * @param  \Illuminate\Http\Request  $request
+      * @param  int  $id
+      * @return \Illuminate\Http\Response
+      */
+    
+
+   
+    public function update(Request $request, $id) {
+    {
+     
+        $this->validate($request,[
+            'cat_id'=>'required',
+            'subcat_id'=>'required',
+            'brand_id'=>'required',
+             'product_name'=>'required|unique:products,product_name',
+             'price'=>'required',
+             'size_id'=>'required',
+             'color_id'=>'required',
+             'product_stock'=>'required',
+             'discount'=>'required',
+             'product_weight'=>'required',
+            'status'=>'required', 
+            'image' =>'required',
+             
+           
+           
+        ]);
+
+        $products = product::findOrFail($id);
+
+        $products->cat_id= $request->cat_id;
+            $products->sub_id= $request->subcat_id;
+            $products->brand_id= $request->brand_id;
+            $products->product_name= $request->product_name;
+            $products->price= $request->price;
+            $products->size_id= $request->size_id;
+            $products->color_id= $request->color_id;
+            $products->stock= $request->product_stock;
+            $products->discount= $request->discount;
+            $products->product_weight= $request->product_weight;
+            $products->status= $request->status;
+            
+
+             
+      $date = Carbon::now()->format('his')+rand(1000,9999);
+
+        if($single_image = $request->file('single_image')){
+            $extention = $request->file('single_image')->getClientOriginalExtension();
+            $imageName = $date.'.'.$extention;
+            $path = public_path('uploads/single_image');
+            $single_image->move($path,$imageName);
+
+
+        if(file_exists('uploads/single_image/'.$products->single_image) AND !empty($products->single_image))
+            {
+                unlink('uploads/single_image/'.$products->single_image);
+            }
+            $products->single_image = $imageName;
+         }  
+        else
+        {
+            $products->single_image = $products->single_image;
+        }
+
+        if ($products->save()) {
+           return redirect()->back()->with('success','product information successfully save.');
+        }
+        else{
+            return redirect()->back()->with('error','Something Error Found !, Please try again.');
+        }   
+
+
+
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        
+
     }
 
     /**
@@ -191,15 +268,45 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id)
+    public function delete($id) {
     {
         // dd($id);
+
+        $products = product::findOrFail($id);
+
+            
+        
+        if($products){
+            if( file_exists('uploads/single_image/'.$products->single_image) AND !empty($products->single_image))
+            {
+                unlink('uploads/single_image/'.$products->single_image);
+            }
+            $products->delete();
+            return redirect()->back()->with('success','products information successfully deleted.');
+        }
+        
+         else
+        {
+            return redirect()->back()->with('error','Something Error Found !, Please try again.');
+        }
+           
+        }
+
     }
+
+    
 
         public function showBrand($id){
 // dd($id);
-        $brand = DB::table('brands')->where('sub_id',$id)->get();
+        $brand = 'DB'::table('brands')->where('sub_id',$id)->get();
 
         return response()->json($brand);
     }
-}
+
+   
+        }
+
+
+    
+
+

@@ -1,4 +1,7 @@
 <script src="{{asset('assets/admin')}}/plugins/jquery/jquery.min.js"></script>
+<!-- file input -->
+<script src="{{asset('assets/admin')}}/plugins/bootstrap-fileinput/fileinput.min.css"></script>
+<script src="{{asset('assets/admin')}}/plugins/bootstrap-fileinput/fileinput-theme.min.css"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{asset('assets/admin')}}/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

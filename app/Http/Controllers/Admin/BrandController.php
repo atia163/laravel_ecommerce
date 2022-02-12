@@ -86,7 +86,7 @@ class BrandController extends Controller
         }
         
         if($brands->save()){
-          return redirect()->back()->with('success','Brand information successfully updated.');
+          return redirect()->back()->with('success','Brand information successfully saved.');
         }
         else{
           return redirect()->back()->with('error','Something Error Found !, Please try again.');
@@ -173,7 +173,7 @@ class BrandController extends Controller
         }
         
         if($brands->save()){
-          return redirect()->back()->with('success','Brand information successfully saved.');
+          return redirect()->back()->with('success','Brand information successfully updated.');
         }
         else{
           return redirect()->back()->with('error','Something Error Found !, Please try again.');

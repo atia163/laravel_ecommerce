@@ -191,7 +191,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('admin.viewproduct')}}" class="nav-link {{request()->is('admin/product/view-product') ? 'active' : '' }}">
+                <a href="{{route('admin.viewProduct')}}" class="nav-link {{request()->is('admin/product/view-product') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>View product</p>
                 </a>
